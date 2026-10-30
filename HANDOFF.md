@@ -41,11 +41,12 @@ Final CSV: outputs/submission.csv, 79101 rows, weeks 2026-07-27 through 2026-09-
 SHA256: 740b36cc1bff8b7b7fecb204fccbdcf9dad1bf561add42415bf33a9290f23d6f
 Verified complete keys, finite nonnegative values, no duplicate keys, exact native reload determinism.
 Model bundle: model/config.json, model/log.txt, model/pairs.csv.
-Local Git repository initialized; implementation commit 185b9ec. Nothing was pushed.
+Local Git repository initialized; implementation commit 185b9ec. Main has been pushed to the private repository.
 GitHub publication authorized by the user: https://github.com/Va-Ya/sberhack-forecast (private).
 Human guide: docs/HUMAN_GUIDE.md. Agent guide: docs/AGENT_GUIDE.md. Copy-paste prompt: CONTINUE_PROMPT.md.
 The private repository is a separate project from Shelpess/komanda; the latter remains the skill source.
 Delivery archive: release/sberhack-solution.zip; checksums/source commit in release/manifest.json.
+GitHub release: https://github.com/Va-Ya/sberhack-forecast/releases/tag/v1.0.0
 
 Live server: http://127.0.0.1:8000 ; docs: /docs ; health: /health.
 Started via hidden user process; launcher PID 14460, uvicorn PID 9220 (check reports/api_process.json/logs).

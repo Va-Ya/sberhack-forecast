@@ -6,6 +6,8 @@
 
 ## С чего начать
 
+- **Закрытый репозиторий:** [Va-Ya/sberhack-forecast](https://github.com/Va-Ya/sberhack-forecast).
+- **Скачать готовый комплект:** [выпуск v1.0.0](https://github.com/Va-Ya/sberhack-forecast/releases/tag/v1.0.0).
 - **Участникам команды:** [понятная инструкция](docs/HUMAN_GUIDE.md).
 - **Следующему агенту:** [порядок продолжения](docs/AGENT_GUIDE.md) и
   [готовый текст задания](CONTINUE_PROMPT.md).
