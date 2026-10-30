@@ -1,7 +1,7 @@
 # SberHack
 
 Implement sales forecasting and the API in this directory. The unrelated
-`android-game-tools/` directory is outside this task.
+`android-game-tools/` and `game-analysis/` directories are outside this task.
 
 - Competition cutoff: 2026-07-26 inclusive, forecast 2026-07-27 through 2026-09-21.
 - Never build features, category metadata or statistics from later observations.
@@ -15,4 +15,6 @@ Implement sales forecasting and the API in this directory. The unrelated
 - API: `python -m uvicorn app.main:app --host 0.0.0.0 --port 8000`.
 - Update HANDOFF.md and reports/experiments.jsonl after milestones. Keep the last
   working model/submission when trying another configuration.
-- No Telegram messages, publication or organizer submission is authorized.
+- Read docs/AGENT_GUIDE.md and HANDOFF.md before continuing. The raw archive and caches are not in Git.
+- User authorized publication to a NEW PRIVATE GitHub repository Va-Ya/sberhack-forecast.
+  Do not change visibility, invite collaborators, send Telegram messages or submit to organizers without instructions.

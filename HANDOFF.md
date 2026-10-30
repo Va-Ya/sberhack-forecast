@@ -42,6 +42,9 @@ SHA256: 740b36cc1bff8b7b7fecb204fccbdcf9dad1bf561add42415bf33a9290f23d6f
 Verified complete keys, finite nonnegative values, no duplicate keys, exact native reload determinism.
 Model bundle: model/config.json, model/log.txt, model/pairs.csv.
 Local Git repository initialized; implementation commit 185b9ec. Nothing was pushed.
+GitHub publication authorized by the user: https://github.com/Va-Ya/sberhack-forecast (private).
+Human guide: docs/HUMAN_GUIDE.md. Agent guide: docs/AGENT_GUIDE.md. Copy-paste prompt: CONTINUE_PROMPT.md.
+The private repository is a separate project from Shelpess/komanda; the latter remains the skill source.
 Delivery archive: release/sberhack-solution.zip; checksums/source commit in release/manifest.json.
 
 Live server: http://127.0.0.1:8000 ; docs: /docs ; health: /health.
@@ -58,7 +61,7 @@ Ready maintenance commands:
 `python -m tools.report_results`
 `python -m tools.package_solution`
 
-User asked to warn if account usage exceeds 50%. Last read: Plus Codex 5-hour 0%, weekly 0%.
+User asked to warn if account usage exceeds 50%. Last read during publication: Plus Codex 5-hour 45%, weekly 7%.
 Check get_usage_limits at milestones; these are shared Codex windows, not total Plus consumption.
 Earlier automatic approval review stopped once due to a usage-limit error; after user continuation
 ordinary usage was allowed and subsequent approvals/tests completed. No safety denial is pending.
