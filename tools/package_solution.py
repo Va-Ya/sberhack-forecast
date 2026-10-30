@@ -17,7 +17,7 @@ def main():
             raise FileNotFoundError(f"Missing release requirement: {name}")
     destination = root / "release/sberhack-solution.zip"
     destination.parent.mkdir(exist_ok=True)
-    files = ["README.md", "HANDOFF.md", "AGENTS.md", "Dockerfile", ".dockerignore", ".gitignore",
+    files = ["README.md", "HANDOFF.md", "AGENTS.md", "Dockerfile", ".dockerignore", ".gitignore", ".gitattributes",
              "requirements.txt", "requirements-train.txt", "requirements-dev.txt", "constraints.txt",
              "pyproject.toml", "score.py"]
     for directory in ["forecast", "app", "tests", "tools", ".agents/skills", "model", "outputs", "reports", "data"]:
