@@ -1,0 +1,20 @@
+{
+  "sales": {
+    "rows": 1492370,
+    "excluded_after_cutoff": 13543,
+    "start": "2024-01-01",
+    "end": "2026-07-26",
+    "negative_values": 0
+  },
+  "stock": {
+    "rows": 6153988,
+    "excluded_after_cutoff": 61683,
+    "start": "2023-12-13",
+    "end": "2026-07-26",
+    "negative_values": 55
+  },
+  "pairs": 8789,
+  "origin": "2026-07-26",
+  "pair_policy": "cartesian",
+  "archive_sha256": "3fa9f5c80296328a571f80875d77dfb0b03f97859c96f59b75e86f4bcf8f3529"
+}

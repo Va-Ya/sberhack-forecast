@@ -1,0 +1,9 @@
+{
+  "selected": "log_zero",
+  "selection_folds": [
+    "2026-01-19",
+    "2026-03-23"
+  ],
+  "control_fold": "2026-05-25",
+  "policy": "mean rank score on first two folds; control not used for tuning"
+}

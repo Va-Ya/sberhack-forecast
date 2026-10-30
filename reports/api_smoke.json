@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "rows": 79101,
+  "cli_api_equal": true,
+  "input_days": 180,
+  "elapsed_seconds": 28.89775499998359,
+  "forecast_sha256": "4a8c9cc92a4cabbd5fb233545ad3da017de7838bfc930a8edcfb5f07a24a2631"
+}

@@ -1,0 +1,17 @@
+Final unit/contract run:
+  25 passed in 27.55s
+  ruff: All checks passed
+
+Coverage:
+  app/main.py: 100%
+  forecast/model.py: 99%
+  forecast/features.py: 99%
+  forecast/data.py: 87%
+  overall: 73% (CLI orchestration is exercised separately, not included in unit coverage)
+
+Separate integration checks:
+  Full competition submission: 79101 rows; exact native reload determinism; CSV parity PASS.
+  Real 180-day inputs, TestClient: 79101 rows, CLI/API exact bytes equal, 28.90 seconds PASS.
+  Real HTTP server on 127.0.0.1:8000: CLI/API exact bytes equal, cached GET equal, 57.34 seconds PASS.
+  Linux/Python 3.13 runtime wheel dependency resolution: PASS.
+  Docker build and network-disabled container: NOT RUN, WSL engine startup blocked (see environment.md).

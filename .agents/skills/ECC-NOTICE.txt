@@ -1,0 +1,6 @@
+ECC 2.2.3
+Source: https://github.com/affaan-m/ECC
+Commit: 25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b
+MIT License; Copyright (c) 2026 Affaan Mustafa
+
+This distribution contains a data-only adaptation of skills, roles, commands and rules. Original component text and attribution are retained in upstream/. No upstream hook, installer, shell script or third-party integration is activated. Original metadata model/tool declarations are not application permissions.

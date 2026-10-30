@@ -1,0 +1,11 @@
+**
+!requirements.txt
+!constraints.txt
+!forecast/
+!forecast/**
+!app/
+!app/**
+!model/
+!model/**
+**/__pycache__/
+**/*.pyc

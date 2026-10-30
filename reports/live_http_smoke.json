@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "network": "host",
+  "url": "http://127.0.0.1:8000",
+  "rows": 79101,
+  "seconds": 57.34008140000515,
+  "sha256": "4a8c9cc92a4cabbd5fb233545ad3da017de7838bfc930a8edcfb5f07a24a2631",
+  "exact_bytes_equal": true,
+  "checks": ["health", "multipart POST", "CLI parity on 180-day real inputs", "GET cached CSV equality"],
+  "container_verified": false
+}

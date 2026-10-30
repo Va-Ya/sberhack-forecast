@@ -1,0 +1,7 @@
+numpy==2.3.4
+pandas==2.3.3
+scipy==1.18.1
+lightgbm==4.7.0
+fastapi==0.121.0
+uvicorn==0.38.0
+python-multipart==0.0.20

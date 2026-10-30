@@ -1,0 +1,10 @@
+{
+  "repository": "https://github.com/Shelpess/komanda",
+  "commit": "c8dfa617a2ef1523c713ba79e88189d93b0f1173",
+  "skills": [
+    "mle-workflow",
+    "python-patterns",
+    "python-testing",
+    "docker-patterns"
+  ]
+}

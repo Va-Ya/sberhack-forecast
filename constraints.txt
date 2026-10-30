@@ -1,0 +1,26 @@
+# Runtime dependency closure from the verified environment
+annotated-doc==0.0.5
+annotated-types==0.7.0
+anyio==4.11.0
+click==8.3.0
+colorama==0.4.6
+fastapi==0.121.0
+h11==0.16.0
+idna==3.11
+lightgbm==4.7.0
+narwhals==2.25.0
+numpy==2.3.4
+pandas==2.3.3
+pydantic==2.12.3
+pydantic-core==2.41.4
+python-dateutil==2.9.0.post0
+python-multipart==0.0.20
+pytz==2025.2
+scipy==1.18.1
+six==1.17.0
+sniffio==1.3.1
+starlette==0.49.3
+typing-extensions==4.15.0
+typing-inspection==0.4.2
+tzdata==2025.2
+uvicorn==0.38.0
