@@ -1,0 +1,94 @@
+{
+  "selection_folds": [
+    "2026-01-19",
+    "2026-03-23"
+  ],
+  "selection_policy": "Strict improvement all five metrics each selection fold, then minimize mean baseline-normalized score. Candidate family fixed before final comparison.",
+  "frozen_before_control": true,
+  "training": {
+    "iterations": 400,
+    "pairs_per_origin": 1200,
+    "origin_step_days": 14,
+    "seed": 2026,
+    "learning_rate": 0.055,
+    "num_leaves": 31
+  },
+  "members": {
+    "log": {
+      "backend": "lightgbm",
+      "transform": "log1p",
+      "rounds": 400,
+      "params": {
+        "objective": "regression",
+        "learning_rate": 0.055,
+        "num_leaves": 31,
+        "min_data_in_leaf": 100,
+        "lambda_l2": 3,
+        "max_bin": 127,
+        "seed": 2026,
+        "deterministic": true,
+        "force_col_wise": true,
+        "verbosity": -1
+      }
+    },
+    "raw": {
+      "backend": "lightgbm",
+      "transform": "identity",
+      "rounds": 400,
+      "params": {
+        "objective": "regression_l1",
+        "learning_rate": 0.055,
+        "num_leaves": 31,
+        "min_data_in_leaf": 100,
+        "lambda_l2": 3,
+        "max_bin": 127,
+        "seed": 2026,
+        "deterministic": true,
+        "force_col_wise": true,
+        "verbosity": -1
+      }
+    },
+    "tweedie": {
+      "backend": "lightgbm",
+      "transform": "identity",
+      "rounds": 600,
+      "params": {
+        "objective": "tweedie",
+        "learning_rate": 0.035,
+        "num_leaves": 63,
+        "min_data_in_leaf": 100,
+        "lambda_l2": 8,
+        "max_bin": 127,
+        "seed": 2026,
+        "deterministic": true,
+        "force_col_wise": true,
+        "verbosity": -1,
+        "tweedie_variance_power": 1.3
+      }
+    },
+    "cat_log": {
+      "backend": "catboost",
+      "transform": "log1p",
+      "rounds": 600,
+      "params": {
+        "depth": 6,
+        "loss_function": "RMSE",
+        "learning_rate": 0.06,
+        "l2_leaf_reg": 5,
+        "random_seed": 2026,
+        "allow_writing_files": false,
+        "used_ram_limit": "900mb"
+      }
+    }
+  },
+  "calibration": {
+    "weights": {
+      "log": 0.33,
+      "raw": 0.09,
+      "mean8": 0.18,
+      "tweedie": 0.15000000000000002,
+      "cat_log": 0.25
+    },
+    "threshold": 0.75
+  }
+}

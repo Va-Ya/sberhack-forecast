@@ -14,8 +14,10 @@ data/smoke/
 model-next/
 reports/predictions/
 reports/folds/
+reports/staging/
+reports/advanced-control/
+reports/advanced-final/
 reports/model-backup/
-reports/current_audit/refit/
 android-game-tools/
 release/
 *.log

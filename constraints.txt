@@ -1,18 +1,29 @@
-# Runtime dependency closure from the verified environment
+# Runtime dependency closure from the installed training environment
 annotated-doc==0.0.5
 annotated-types==0.7.0
 anyio==4.11.0
+catboost==1.2.10
 click==8.3.0
 colorama==0.4.6
+contourpy==1.4.0
+cycler==0.12.1
 fastapi==0.121.0
+fonttools==4.68.0
+graphviz==0.21
 h11==0.16.0
 idna==3.11
+kiwisolver==1.5.1
 lightgbm==4.7.0
+matplotlib==3.11.2
 narwhals==2.25.0
 numpy==2.3.4
+packaging==26.3
 pandas==2.3.3
+pillow==13.0.0
+plotly==7.1.0
 pydantic==2.12.3
 pydantic-core==2.41.4
+pyparsing==3.3.3
 python-dateutil==2.9.0.post0
 python-multipart==0.0.20
 pytz==2025.2

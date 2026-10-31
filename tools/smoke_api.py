@@ -48,6 +48,7 @@ def main():
     with (directory / "sales.csv").open("rb") as sales, (directory / "stock.csv").open("rb") as stock:
         panel = load_inputs(sales, stock)
     cli = predictor.predict_panel(panel)
+    input_days = len(panel.dates)
     cli_csv = cli.to_csv(index=False, float_format="%.8f")
     del panel
     started = time.perf_counter()
@@ -66,7 +67,7 @@ def main():
     Path("reports").mkdir(exist_ok=True)
     (directory / "forecast.csv").write_text(cli_csv, encoding="utf-8", newline="")
     (Path("reports") / "api_smoke.json").write_text(json.dumps({"status": "passed", "rows": len(cli),
-        "cli_api_equal": True, "input_days": 180, "elapsed_seconds": time.perf_counter() - started,
+        "cli_api_equal": True, "input_days": input_days, "elapsed_seconds": time.perf_counter() - started,
         "forecast_sha256": sha256_file(directory / "forecast.csv")}, indent=2), encoding="utf-8")
     print("Real-data API/CLI smoke passed", flush=True)
 

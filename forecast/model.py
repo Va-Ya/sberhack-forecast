@@ -23,6 +23,12 @@ class TrainingConfig:
     learning_rate: float = 0.055
     num_leaves: int = 31
 
+    def __post_init__(self):
+        if min(self.iterations, self.pairs_per_origin, self.origin_step_days, self.threads, self.num_leaves) < 1:
+            raise ValueError("Training sizes and threads must be positive")
+        if not 0 < self.learning_rate <= 1:
+            raise ValueError("learning_rate must be in (0, 1]")
+
 
 def training_matrix(panel: Panel, cutoff: pd.Timestamp, encoder: dict, config: TrainingConfig):
     first = panel.dates[0] + pd.Timedelta(days=182)
@@ -69,15 +75,24 @@ def fit_models(panel: Panel, cutoff: pd.Timestamp, config: TrainingConfig,
 
 
 def model_predictions(models: dict, encoder: dict, columns: list[str], panel: Panel,
-                      cutoff: pd.Timestamp, threads: int = 2) -> dict[str, np.ndarray]:
+                      cutoff: pd.Timestamp, threads: int = 2,
+                      backends: dict | None = None, transforms: dict | None = None) -> dict[str, np.ndarray]:
     base = base_features(panel, cutoff, encoder)
     result = {kind: [] for kind in models}
     for horizon in range(1, HORIZON + 1):
         matrix = horizon_features(base, panel, cutoff, horizon)[columns]
         for kind, model in models.items():
-            values = model.predict(matrix, num_threads=threads)
-            if kind == "log":
+            if (backends or {}).get(kind) == "catboost":
+                cat_matrix = matrix.copy()
+                cat_matrix[CATEGORICAL] = cat_matrix[CATEGORICAL].astype(np.int32)
+                values = model.predict(cat_matrix, thread_count=threads)
+            else:
+                values = model.predict(matrix, num_threads=threads)
+            transform = (transforms or {}).get(kind, "log1p" if kind == "log" else "identity")
+            if transform == "log1p":
                 values = np.expm1(np.clip(values, 0, 30))
+            elif transform != "identity":
+                raise ValueError(f"Unknown target transform: {transform}")
             result[kind].append(np.maximum(values, 0))
     return {kind: np.stack(value) for kind, value in result.items()}
 
@@ -88,7 +103,30 @@ def candidates(baseline: dict, learned: dict) -> dict:
         result[kind] = prediction
         result[kind + "_zero"] = np.where(prediction < 0.5, 0, prediction)
         result[kind + "_blend"] = 0.8 * prediction + 0.2 * baseline["mean8"]
+    # Fixed candidate grid, selected only on the first two temporal windows.
+    for kind, prediction in learned.items():
+        for threshold in [0.25, 0.75, 1.0]:
+            result[f"{kind}_t{threshold}"] = np.where(prediction < threshold, 0, prediction)
+    if "raw" in learned and "log" in learned:
+        for weight in [0.25, 0.5, 0.75]:
+            mixed = weight * learned["raw"] + (1 - weight) * learned["log"]
+            result[f"mix_{weight}"] = np.where(mixed < 0.5, 0, mixed)
     return result
+
+
+def calibrated_predictions(baseline: dict, learned: dict, recipe: dict) -> np.ndarray:
+    """Apply a frozen convex ensemble; no fitting takes place during inference."""
+    weights = recipe["weights"]
+    if not weights or any(not np.isfinite(w) or w < 0 for w in weights.values()):
+        raise ValueError("Ensemble weights must be finite and nonnegative")
+    if not np.isclose(sum(weights.values()), 1.0, atol=1e-9):
+        raise ValueError("Ensemble weights must sum to one")
+    threshold = float(recipe.get("threshold", 0))
+    if not np.isfinite(threshold) or threshold < 0:
+        raise ValueError("Ensemble threshold must be finite and nonnegative")
+    sources = {**baseline, **learned}
+    values = sum(weight * sources[name] for name, weight in weights.items())
+    return np.where(values < threshold, 0, np.maximum(values, 0))
 
 
 def forecast_frame(values: np.ndarray, pairs: pd.DataFrame, first_week: pd.Timestamp) -> pd.DataFrame:
@@ -110,15 +148,25 @@ class Predictor:
     @classmethod
     def load(cls, directory: Path) -> Predictor:
         config = json.loads((directory / "config.json").read_text(encoding="utf-8"))
-        models = {kind: lgb.Booster(model_file=str(directory / f"{kind}.txt")) for kind in config["models"]}
+        models = {}
+        for kind in config["models"]:
+            if config.get("model_backends", {}).get(kind) == "catboost":
+                from catboost import CatBoostRegressor
+
+                models[kind] = CatBoostRegressor().load_model(str(directory / f"{kind}.cbm"))
+            else:
+                models[kind] = lgb.Booster(model_file=str(directory / f"{kind}.txt"))
         return cls(config, models)
 
     def predict_panel(self, panel: Panel) -> pd.DataFrame:
         cutoff = panel.dates[-1]
         baseline = baselines(panel, cutoff)
         learned = model_predictions(self.models, self.config["encoder"], self.config["features"],
-                                    panel, cutoff, self.config.get("threads", 2)) if self.models else {}
-        values = candidates(baseline, learned)[self.config["selected"]]
+                                    panel, cutoff, self.config.get("threads", 2),
+                                    self.config.get("model_backends"),
+                                    self.config.get("model_transforms")) if self.models else {}
+        values = calibrated_predictions(baseline, learned, self.config["calibration"]) \
+            if "calibration" in self.config else candidates(baseline, learned)[self.config["selected"]]
         return forecast_frame(values[:, panel.output_indices], panel.output_pairs, next_monday(cutoff))
 
 

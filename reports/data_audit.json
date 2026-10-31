@@ -16,5 +16,6 @@
   "pairs": 8789,
   "origin": "2026-07-26",
   "pair_policy": "cartesian",
+  "requested_pairs": null,
   "archive_sha256": "3fa9f5c80296328a571f80875d77dfb0b03f97859c96f59b75e86f4bcf8f3529"
 }

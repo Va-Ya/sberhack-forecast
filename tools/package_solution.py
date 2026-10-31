@@ -24,7 +24,7 @@ def main():
         for path in (root / directory).rglob("*"):
             relative = path.relative_to(root)
             if not path.is_file() or any(p in {"__pycache__", "cache", "smoke", "wheels", "wheels-linux", "predictions", "folds",
-                                              "model-backup", "refit"} for p in relative.parts):
+                                              "model-backup", "staging"} for p in relative.parts):
                 continue
             if path.suffix in {".pyc", ".npz"}:
                 continue
@@ -38,6 +38,7 @@ def main():
                 "entries_sha256": {name: sha256_file(root / name) for name in sorted(set(files))}}
     commit = subprocess.run(["git", "-C", str(root), "rev-parse", "HEAD"], capture_output=True, text=True)
     if commit.returncode == 0:
+        manifest["working_tree_dirty"] = bool(subprocess.run(["git", "-C", str(root), "status", "--porcelain"], capture_output=True, text=True).stdout.strip())
         manifest["source_commit"] = commit.stdout.strip()
     (destination.parent / "manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
     print(json.dumps({k: v for k, v in manifest.items() if k != "entries_sha256"}), flush=True)

@@ -15,7 +15,7 @@ def main():
     parser.add_argument("--truth", required=True)
     parser.add_argument("--submissions", nargs="+", required=True)
     parser.add_argument("--baseline")
-    parser.add_argument("--method", choices=["rank", "minmax"], default="rank")
+    parser.add_argument("--method", choices=["rank", "minmax"], default="minmax")
     parser.add_argument("--output", default="leaderboard.csv")
     args = parser.parse_args()
     truth = pd.read_csv(args.truth, dtype={"week": str, "warehouse_name": str, "article": str})

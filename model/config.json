@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "selected": "log_zero",
+  "selected": "log_t0.75",
   "models": [
     "log"
   ],
@@ -946,6 +946,11 @@
     "warehouse_name_share_8",
     "article_total_8",
     "article_share_8",
+    "category_lvl_1_mean_8",
+    "category_lvl_2_mean_8",
+    "trend_2_8",
+    "cv_8",
+    "recent_positive_days_28",
     "horizon",
     "target_month",
     "target_week",
@@ -958,8 +963,8 @@
   "threads": 2,
   "training": {
     "seed": 2026,
-    "iterations": 180,
-    "pairs_per_origin": 600,
+    "iterations": 400,
+    "pairs_per_origin": 1200,
     "origin_step_days": 14,
     "threads": 2,
     "learning_rate": 0.055,
@@ -984,11 +989,12 @@
     "pairs": 8789,
     "origin": "2026-07-26",
     "pair_policy": "cartesian",
+    "requested_pairs": null,
     "archive_sha256": "3fa9f5c80296328a571f80875d77dfb0b03f97859c96f59b75e86f4bcf8f3529"
   },
-  "training_rows": 420600,
+  "training_rows": 841200,
   "dependencies": {
-    "python": "3.13.9",
+    "python": "3.12.14",
     "numpy": "2.3.4",
     "pandas": "2.3.3",
     "lightgbm": "4.7.0"

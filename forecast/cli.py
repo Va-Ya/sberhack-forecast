@@ -44,12 +44,12 @@ def get_panel(args) -> Panel:
     pairs = pd.read_csv(args.pairs, dtype=str) if args.pairs else None
     archive_hash = sha256_file(Path(args.archive))
     signature = {"archive": archive_hash, "cutoff": str(CUTOFF.date()),
-                 "pairs": sha256_file(Path(args.pairs)) if args.pairs else "cartesian", "schema": 2}
+                 "pairs": sha256_file(Path(args.pairs)) if args.pairs else "cartesian", "schema": 4}
     cache = Path("data/cache/panel.npz")
     manifest = cache.with_suffix(".json")
     if cache.exists() and manifest.exists():
         stored = json.loads(manifest.read_text())
-        if stored == signature or (not args.pairs and stored == {**signature, "schema": 1}):
+        if stored == signature:
             panel = Panel.load(cache)
             if not args.pairs:
                 panel.audit.update(pair_policy="cartesian", requested_pairs=None)
@@ -85,7 +85,9 @@ def train(args) -> None:
         folder = Path("reports/folds") / start
         config_path = folder / "config.json"
         # Resume completed work only when all training parameters and data identities match.
-        expected_identity = {"training": config.__dict__, "data_sha256": panel.audit["archive_sha256"]}
+        expected_identity = {"training": config.__dict__, "data_sha256": panel.audit["archive_sha256"],
+                             "source": {name: sha256_file(Path("forecast") / name) for name in
+                                        ["model.py", "features.py", "data.py", "contracts.py", "metrics.py", "cli.py"]}}
         if config_path.exists():
             saved = json.loads(config_path.read_text())
             if saved.get("identity") != expected_identity:
@@ -112,17 +114,17 @@ def train(args) -> None:
         np.savez_compressed(Path("reports/predictions") / f"{start}.npz", truth=truth, **predictions)
         if fold_number == 1:
             scores = pd.concat([leaderboard(fold_metrics[f]) for f in FOLDS[:2]]).groupby(level=0).mean()
-            scores = scores.sort_values(["rank_score", "smape"], kind="stable")
+            scores = scores.sort_values(["baseline_score", "smape"], kind="stable")
             scores.to_csv("reports/selection.csv", index_label="candidate")
             selected = str(scores.index[0])
             write_json(Path("reports/selection.json"), {"selected": selected,
                        "selection_folds": FOLDS[:2], "control_fold": FOLDS[2],
-                       "policy": "mean rank score on first two folds; control not used for tuning"})
+                       "policy": "mean baseline-normalized score on first two folds; control not used for tuning"})
             print(f"Locked selection BEFORE control: {selected}", flush=True)
     assert selected is not None
-    kinds = ("raw",) if selected.startswith("raw") else (("log",) if selected.startswith("log") else ())
+    kinds = ("raw",) if selected.startswith("raw") else (("log",) if selected.startswith("log") else (("raw", "log") if selected.startswith("mix") else ()))
     models, encoder, columns, nrows = fit_models(panel, CUTOFF, config, kinds) if kinds else ({}, {}, [], 0)
-    staging = Path("model-next")
+    staging = Path("reports/staging") / datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%f")
     save_bundle(staging, models, encoder, columns, selected, config, panel,
                 {"training_rows": nrows, "dependencies": {"python": platform.python_version(),
                  "numpy": np.__version__, "pandas": pd.__version__, "lightgbm": lightgbm.__version__}})
@@ -138,6 +140,8 @@ def train(args) -> None:
         backup = Path("reports/model-backup") / datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S")
         shutil.copytree(directory, backup)
     directory.mkdir(exist_ok=True)
+    if not args.pairs:
+        (directory / "allowed_pairs.csv").unlink(missing_ok=True)
     for file in staging.iterdir():
         shutil.copy2(file, directory / file.name)
     # Config lists the exact active models; unused old native text files are harmless but excluded from releases.

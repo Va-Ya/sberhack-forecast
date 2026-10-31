@@ -75,6 +75,13 @@ def base_features(panel: Panel, cutoff: pd.Timestamp, encoder: dict) -> pd.DataF
         totals = pd.Series(features["mean_8"]).groupby(panel.pairs[entity]).transform("sum").to_numpy()
         features[f"{entity}_total_8"] = totals
         features[f"{entity}_share_8"] = features["mean_8"] / (totals + 1)
+    for category in CATEGORIES[:2]:
+        labels = panel.pairs.article.map(meta[category]).fillna("__missing__")
+        values = pd.Series(features["mean_8"], index=panel.pairs.index)
+        features[f"{category}_mean_8"] = values.groupby(labels).transform("mean").to_numpy()
+    features["trend_2_8"] = features["mean_2"] / (features["mean_8"] + 1)
+    features["cv_8"] = features["std_8"] / (features["mean_8"] + 1)
+    features["recent_positive_days_28"] = sold[-28:].sum(axis=0)
     return pd.DataFrame(features, index=panel.pairs.index).astype(np.float32)
 
 

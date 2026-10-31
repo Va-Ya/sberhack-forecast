@@ -74,7 +74,7 @@ def _read(stream: BinaryIO, kind: str, cutoff: pd.Timestamp | None, min_days: in
     required = SALES_COLUMNS if kind == "sales" else ["date", "warehouse_name", "stock"]
     try:
         reader = pd.read_csv(stream, chunksize=chunksize, dtype={"date": str, "article": str,
-                            "char_article": str, "warehouse_name": str})
+                            "char_article": str, "warehouse_name": str, **dict.fromkeys(CATEGORIES, str)})
         for chunk in reader:
             missing = set(required) - set(chunk.columns)
             if kind == "stock" and not {"article", "char_article"}.intersection(chunk.columns):
