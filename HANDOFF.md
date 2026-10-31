@@ -1,5 +1,23 @@
 # SberHack handoff
 
+## Fresh audit, 2026-10-31 17:49 Moscow
+
+See reports/current_audit/SUMMARY.md and its evidence JSON/XML/CSV files.
+- 27 unit tests passed; 27 real HTTP checks passed. Full real POST: 23.00/22.60 seconds.
+- Source sales/stock independently rebuilt from ZIP: exact cache equality, difference 0.0.
+- All three frozen backtest predictions and independently computed metrics matched the previous report.
+- Final model refitted separately: native file SHA256 identical, prediction difference 0.0, fit 78.12 seconds.
+- Important quality issue: control-window total prediction 165210.33 versus actual 212336, bias -22.19%.
+  Average per-series absolute Bias is a different measure: 67.58%.
+- Mean8 baseline beats the chosen model on RMSE/Bias/RMSLE; chosen model wins on the weighted local objective.
+- Short 180-day control history is slightly worse on WAPE: 47.4211 vs 47.3994 for full history.
+- CLI defect fixed: explicit missing/directory --pairs now fails clearly instead of falling back or crashing.
+  Two regressions reproduced the issue before the fix and passed afterward. Main model/submission unchanged.
+- Docker freshly started once and failed before engine startup on inaccessible dockerInference runtime socket.
+  The old WSL error below belongs to an earlier attempt. No OS/service reset performed in this audit.
+- Current runtime is an existing venv with system-site-packages; clean Linux/container operation remains NOT RUN.
+- The v1.0.0 release predates this audit; main contains the current CLI fix and audit report.
+
 Status: final model, submission, CLI and running Windows HTTP API are ready and verified.
 Dockerfile is ready; Docker build/offline execution remains blocked by WSL startup and administrator permissions.
 

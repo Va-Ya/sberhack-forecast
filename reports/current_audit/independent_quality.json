@@ -1,0 +1,75 @@
+{
+  "status": "passed",
+  "time_utc": "2026-10-31T14:38:50.756098+00:00",
+  "source_commit": "fd3c1768fe4cca136f814acab9fbaf75057f7741",
+  "elapsed_seconds": 84.31439030001638,
+  "archive_sha256": "3fa9f5c80296328a571f80875d77dfb0b03f97859c96f59b75e86f4bcf8f3529",
+  "model_sha256": "0a9003e49b0dc15516775831c20677420dc70ed5841104fa532d54b74ceaccf9",
+  "source_data": {
+    "sales": {
+      "source_rows": 1492370,
+      "excluded_after_cutoff": 13543,
+      "max_abs_cache_difference": 0.0,
+      "category_tuple_conflicts": 0
+    },
+    "stock": {
+      "source_rows": 6153988,
+      "excluded_after_cutoff": 61683,
+      "negative_rows_within_panel": 55,
+      "duplicate_rows_within_panel": 1250375,
+      "max_abs_cache_difference": 0.0,
+      "missing_mask_equal": true
+    }
+  },
+  "folds": {
+    "2026-01-19": {
+      "raw_truth_equal": true,
+      "frozen_predictions_equal": true,
+      "max_abs_prediction_difference": 0.0,
+      "independent_metrics_equal": true,
+      "training_cutoff": "2026-01-18",
+      "series_first_sale_after_origin": 126,
+      "signed_total_bias_percent": -15.477399024509964,
+      "actual_total": 175906.0,
+      "predicted_total": 148680.3264719455,
+      "zero_forecast_fraction": 0.524822695035461
+    },
+    "2026-03-23": {
+      "raw_truth_equal": true,
+      "frozen_predictions_equal": true,
+      "max_abs_prediction_difference": 0.0,
+      "independent_metrics_equal": true,
+      "training_cutoff": "2026-03-22",
+      "series_first_sale_after_origin": 42,
+      "signed_total_bias_percent": -19.128467515737835,
+      "actual_total": 184084.0,
+      "predicted_total": 148871.55185832916,
+      "zero_forecast_fraction": 0.5139758030871924
+    },
+    "2026-05-25": {
+      "raw_truth_equal": true,
+      "frozen_predictions_equal": true,
+      "max_abs_prediction_difference": 0.0,
+      "independent_metrics_equal": true,
+      "training_cutoff": "2026-05-24",
+      "series_first_sale_after_origin": 15,
+      "signed_total_bias_percent": -22.19391467321413,
+      "actual_total": 212336.0,
+      "predicted_total": 165210.32933948404,
+      "zero_forecast_fraction": 0.49472193777575507
+    }
+  },
+  "short_history_control_metrics": {
+    "smape": 64.66180714942855,
+    "wape": 47.421062902437505,
+    "rmse": 3.3472681813798335,
+    "bias": 67.58762502179005,
+    "rmsle": 0.48762936050617023
+  },
+  "assumptions": [
+    "fixed final warehouse/article universe across all backtests",
+    "Cartesian pairs, no organizer reference"
+  ],
+  "competition_test_truth_available": false,
+  "note": "No model tuning or artifact promotion in this audit; three historical windows only."
+}

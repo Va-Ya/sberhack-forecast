@@ -15,6 +15,7 @@ model-next/
 reports/predictions/
 reports/folds/
 reports/model-backup/
+reports/current_audit/refit/
 android-game-tools/
 release/
 *.log

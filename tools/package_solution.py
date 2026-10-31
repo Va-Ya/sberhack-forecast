@@ -24,7 +24,7 @@ def main():
         for path in (root / directory).rglob("*"):
             relative = path.relative_to(root)
             if not path.is_file() or any(p in {"__pycache__", "cache", "smoke", "wheels", "wheels-linux", "predictions", "folds",
-                                              "model-backup"} for p in relative.parts):
+                                              "model-backup", "refit"} for p in relative.parts):
                 continue
             if path.suffix in {".pyc", ".npz"}:
                 continue

@@ -174,6 +174,8 @@ def main() -> None:
         train(args)
     else:
         pairs_path = Path(args.pairs) if args.pairs else Path(args.model) / "allowed_pairs.csv"
+        if args.pairs and not pairs_path.is_file():
+            parser.error(f"Pairs CSV is not a file: {pairs_path}")
         pairs = pd.read_csv(pairs_path, dtype=str) if pairs_path.exists() else None
         with open(args.sales, "rb") as sales, open(args.stock, "rb") as stock:
             panel = load_inputs(sales, stock, pairs=pairs)

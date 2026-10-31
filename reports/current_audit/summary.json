@@ -1,0 +1,36 @@
+{
+  "time_utc": "2026-10-31T14:49:11.341986+00:00",
+  "unit_tests": {
+    "tests": 27,
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0
+  },
+  "http_checks": 27,
+  "http_all_passed": true,
+  "real_post_seconds": [
+    22.99559240002418,
+    22.60373620002065
+  ],
+  "get_seconds": {
+    "full_cached_csv": 0.6263886999804527,
+    "full_json": 0.6948406999581493,
+    "article_filter": 0.02244629996130243,
+    "warehouse_filter": 0.06855890003498644,
+    "pair_filter": 0.1323347000288777
+  },
+  "source_audit_passed": true,
+  "refit_byte_identical": true,
+  "refit_seconds": 78.1185070000356,
+  "docker": {
+    "engine_available": false,
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "error during connect: Get \"http://%2F%2F.%2Fpipe%2FdockerDesktopLinuxEngine/v1.51/version\": open //./pipe/dockerDesktopLinuxEngine: The system cannot find the file specified.",
+    "build_and_offline_test": "NOT RUN",
+    "last_startup_error": "[2026-10-31T14:37:41.875120900Z][com.docker.backend.exe.report] reporting error to user: starting services: initializing Inference manager: listening on unix://<HOME>\\AppData\\Local\\Docker\\run\\dockerInference: remove <HOME>\\AppData\\Local\\Docker\\run\\dockerInference: The file cannot be accessed by the system. (listener: The filename, directory name, or volume label syntax is incorrect.)"
+  },
+  "production_fix": "Explicit missing/directory --pairs path now exits with code 2; no silent Cartesian fallback",
+  "main_model_replaced": false,
+  "competition_truth_available": false
+}

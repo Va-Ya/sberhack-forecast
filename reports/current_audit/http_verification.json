@@ -1,0 +1,212 @@
+{
+  "status": "passed",
+  "time_utc": "2026-10-31T14:40:57.180185+00:00",
+  "url": "http://127.0.0.1:8000",
+  "checks": [
+    {
+      "check": "health",
+      "status": 200,
+      "expected": 200,
+      "seconds": 0.036325099994428456,
+      "passed": true
+    },
+    {
+      "check": "openapi",
+      "status": 200,
+      "expected": 200,
+      "seconds": 0.35677430004579946,
+      "passed": true
+    },
+    {
+      "check": "missing_get_filter",
+      "status": 400,
+      "expected": 400,
+      "seconds": 0.01231650001136586,
+      "passed": true,
+      "error_envelope_valid": true
+    },
+    {
+      "check": "valid_181_day_demo",
+      "status": 200,
+      "expected": 200,
+      "seconds": 0.7291960000293329,
+      "passed": true
+    },
+    {
+      "check": "negative_sales",
+      "status": 422,
+      "expected": 422,
+      "seconds": 0.027465399994980544,
+      "passed": true,
+      "error_envelope_valid": true
+    },
+    {
+      "check": "short_history",
+      "status": 422,
+      "expected": 422,
+      "seconds": 0.0454654999775812,
+      "passed": true,
+      "error_envelope_valid": true
+    },
+    {
+      "check": "bad_date",
+      "status": 422,
+      "expected": 422,
+      "seconds": 0.03943840001011267,
+      "passed": true,
+      "error_envelope_valid": true
+    },
+    {
+      "check": "missing_column",
+      "status": 422,
+      "expected": 422,
+      "seconds": 0.029556100023910403,
+      "passed": true,
+      "error_envelope_valid": true
+    },
+    {
+      "check": "empty_files",
+      "status": 400,
+      "expected": 400,
+      "seconds": 0.013732000021263957,
+      "passed": true,
+      "error_envelope_valid": true
+    },
+    {
+      "check": "unreadable_csv",
+      "status": 400,
+      "expected": 400,
+      "seconds": 0.014036600012332201,
+      "passed": true,
+      "error_envelope_valid": true
+    },
+    {
+      "check": "missing_multipart_fields",
+      "status": 422,
+      "expected": 422,
+      "seconds": 0.014215099974535406,
+      "passed": true,
+      "error_envelope_valid": true
+    },
+    {
+      "check": "failed_posts_keep_cache",
+      "status": 200,
+      "expected": 200,
+      "seconds": 0.011066199978813529,
+      "passed": true
+    },
+    {
+      "check": "negative_stock_allowed",
+      "status": 200,
+      "expected": 200,
+      "seconds": 0.8545826000045054,
+      "passed": true
+    },
+    {
+      "check": "matching_stock_aliases",
+      "status": 200,
+      "expected": 200,
+      "seconds": 0.3006168000283651,
+      "passed": true
+    },
+    {
+      "check": "conflicting_stock_aliases",
+      "status": 422,
+      "expected": 422,
+      "seconds": 0.057687200023792684,
+      "passed": true,
+      "error_envelope_valid": true
+    },
+    {
+      "check": "friday_origin",
+      "status": 200,
+      "expected": 200,
+      "seconds": 0.3255481999949552,
+      "passed": true
+    },
+    {
+      "check": "unseen_entities",
+      "status": 200,
+      "expected": 200,
+      "seconds": 0.2882489999756217,
+      "passed": true
+    },
+    {
+      "check": "future_stock_ignored",
+      "status": 200,
+      "expected": 200,
+      "seconds": 0.4189365000347607,
+      "passed": true
+    },
+    {
+      "check": "unknown_filter",
+      "status": 404,
+      "expected": 404,
+      "seconds": 0.037831900001037866,
+      "passed": true,
+      "error_envelope_valid": true
+    },
+    {
+      "check": "invalid_format",
+      "status": 400,
+      "expected": 400,
+      "seconds": 0.006724799983203411,
+      "passed": true,
+      "error_envelope_valid": true
+    },
+    {
+      "check": "real_180_day_post_1",
+      "status": 200,
+      "expected": 200,
+      "seconds": 22.99559240002418,
+      "passed": true
+    },
+    {
+      "check": "real_180_day_post_2",
+      "status": 200,
+      "expected": 200,
+      "seconds": 22.60373620002065,
+      "passed": true
+    },
+    {
+      "check": "full_cached_csv",
+      "status": 200,
+      "expected": 200,
+      "seconds": 0.6263886999804527,
+      "passed": true
+    },
+    {
+      "check": "full_json",
+      "status": 200,
+      "expected": 200,
+      "seconds": 0.6948406999581493,
+      "passed": true
+    },
+    {
+      "check": "article_filter",
+      "status": 200,
+      "expected": 200,
+      "seconds": 0.02244629996130243,
+      "passed": true
+    },
+    {
+      "check": "warehouse_filter",
+      "status": 200,
+      "expected": 200,
+      "seconds": 0.06855890003498644,
+      "passed": true
+    },
+    {
+      "check": "pair_filter",
+      "status": 200,
+      "expected": 200,
+      "seconds": 0.1323347000288777,
+      "passed": true
+    }
+  ],
+  "real_rows": 79101,
+  "repeated_post_exact_equal": true,
+  "existing_cli_csv_exact_equal": true,
+  "csv_json_numeric_equal": true,
+  "container_test": false
+}

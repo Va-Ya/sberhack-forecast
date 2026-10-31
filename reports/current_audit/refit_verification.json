@@ -1,0 +1,17 @@
+{
+  "time_utc": "2026-10-31T14:38:41.579955+00:00",
+  "status": "passed",
+  "same_training_data": true,
+  "rows": 420600,
+  "native_model_hashes": {
+    "log": {
+      "original": "0a9003e49b0dc15516775831c20677420dc70ed5841104fa532d54b74ceaccf9",
+      "refit": "0a9003e49b0dc15516775831c20677420dc70ed5841104fa532d54b74ceaccf9"
+    }
+  },
+  "native_model_bytes_equal": true,
+  "prediction_exact_equal": true,
+  "max_abs_prediction_difference": 0.0,
+  "elapsed_seconds": 78.1185070000356,
+  "scope": "same Windows host and pinned installed versions; not a cross-platform guarantee"
+}
